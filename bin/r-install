@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+source "${0%/*}/../share/r-install/r-install.sh"
+
+parse_options "$@" || exit $?
+init || exit $?
+
+log "Installing R $r_version into $install_dir ..."
+
+pre_install  || fail "Pre-install tasks failed!"
+
+if [[ ! $no_install_deps -eq 1 ]]; then
+    install_deps || fail "Installing dependencies failed!"
+fi
+
+if [[ ! $no_download -eq 1 ]]; then
+    download_r || fail "Download of $r_url failed!"
+fi
+
+if [[ ! $no_extract -eq 1 ]]; then
+    extract_r    || fail "Unpacking of $r_archive failed!"
+fi
+
+
+cd "$src_dir/$r_dir_name"
+configure_r  || fail "Configuration of R $r_version failed!"
+compile_r    || fail "Compiling R $r_version failed!"
+install_r    || fail "Installing R $r_version failed!"
+
+log "Succesfully install R $r_version into $install_dir"
