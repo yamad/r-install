@@ -37,32 +37,20 @@ Options:
 	    --system		Alias for -i /usr/local
 	-s, --src-dir DIR	Directory to download source-code into
 	-c, --cleanup		Remove archive and unpacked source-code after installation
-	-j, --jobs JOBS		Number of jobs to run in parallel when compiling
-	-p, --patch FILE	Patch to apply to the R source-code
 	-M, --mirror URL	Alternate mirror to download the R archive from
 	-u, --url URL		Alternate URL to download the R archive from
-	-m, --md5 MD5		MD5 checksum of the R archive
-	    --sha1 SHA1		SHA1 checksum of the R archive
-	    --sha256 SHA256	SHA256 checksum of the R archive
-	    --sha512 SHA512	SHA512 checksum of the R archive
 	--no-download		Use the previously downloaded R archive
 	--no-verify		Do not verify the downloaded R archive
 	--no-extract		Do not re-extract the downloaded R archive
 	--no-install-deps	Do not install build dependencies before installing R
-	--no-reinstall  	Skip installation if another R is detected in same location
-	-L, --latest		Downloads the latest r versions and checksums
+	--no-reinstall  	Skip installation if R is detected at location already
 	-V, --version		Prints the version
 	-h, --help		Prints this message
 
 Examples:
 
-	$ r-install
-	$ r-install 3.4
-	$ r-install 3.4.5
-	$ r-install -- --with-openssl-dir=...
-	$ r-install -M https://ftp.r-lang.org/pub/r r
-	$ r-install -M http://www.mirrorservice.org/sites/ftp.r-lang.org/pub/r r
-	$ r-install -p https://raw.github.com/gist/4136373/falcon-gc.diff r 1.9.3
+	$ r-install 3.4.4
+	$ r-install 3.4.4 -- --with-openssl-dir=...
 
 USAGE
 }
@@ -73,7 +61,7 @@ function parse_options()
 
     while [[ $# -gt 0 ]]; do
         case $1 in
-            -r|--rprojs-dir)
+            -r|--r-dir)
                 r_dir="$2"
                 shift 2
                 ;;
@@ -105,6 +93,10 @@ function parse_options()
                 ;;
             -V|--version)
                 echo "r-install: $r_version"
+                exit
+                ;;
+            -h|--help)
+                usage
                 exit
                 ;;
             --)
