@@ -2,4 +2,4 @@
 
 Installs arbitrary versions of [R](https://r-project.org)
 
-Inspired by [ruby-install)(https://github.com/postmodern/ruby-install)
+Inspired by [ruby-install](https://github.com/postmodern/ruby-install)
