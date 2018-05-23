@@ -3,7 +3,21 @@
 source "${0%/*}/../share/r-install/r-install.sh"
 
 parse_options "$@" || exit $?
+
+if [[ -z "$r_version" ]]; then
+	usage
+	exit $?
+fi
+
 init || exit $?
+
+r_version_family="${r_version:0:3}"
+r_archive="R-$r_version.tar.gz"
+r_dir_name="R-${r_version}"
+r_mirror="${r_mirror:-https://cloud.r-project.org}"
+r_url="${r_url:-$r_mirror/src/base/R-${r_version:0:1}/$r_archive}"
+
+echo "${configure_opts[@]}"
 
 log "Installing R $r_version into $install_dir ..."
 

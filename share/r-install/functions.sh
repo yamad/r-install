@@ -13,8 +13,6 @@ function install_deps()
         log "Installing dependencies for R $r_version ..."
         install_packages "${packages[@]}" || return $?
     fi
-
-    install_optional_deps || return $?
 }
 
 function download_r()
@@ -39,7 +37,6 @@ function configure_r()
     esac
 
     ./configure --prefix="$install_dir" \
-                "${opt_dir:+--}" \
                 "${configure_opts[@]}" || return $?
 }
 
