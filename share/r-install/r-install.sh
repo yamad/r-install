@@ -12,7 +12,7 @@ make_opts=()
 
 if (( UID == 0 )); then
     src_dir="/usr/local/src"
-    r_dir="/opt/Rprojs"
+    r_dir="/opt/local/R"
 else
     src_dir="$HOME/src"
     r_dir="$HOME/.rprojs"
