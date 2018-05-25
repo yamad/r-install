@@ -15,7 +15,7 @@ if (( UID == 0 )); then
     r_dir="/opt/local/R"
 else
     src_dir="$HOME/src"
-    r_dir="$HOME/.rprojs"
+    r_dir="$HOME/.Rprojs"
 fi
 
 source "$r_install_dir/util.sh"

@@ -3,7 +3,8 @@
 #
 # Auto-detect the package manager.
 #
-if command -v brew    >/dev/null; then package_manager="brew"
+if   command -v apt-get >/dev/null; then package_manager="apt"
+elif command -v brew    >/dev/null; then package_manager="brew"
 fi
 
 #
@@ -85,6 +86,8 @@ function fetch()
 function install_packages()
 {
 	case "$package_manager" in
+        apt)
+            $sudo apt-get install -y "$@" || return $? ;;
 		brew)
 			local brew_owner="$(/usr/bin/stat -f %Su "$(command -v brew)")"
 			sudo -u "$brew_owner" brew install "$@" ||
